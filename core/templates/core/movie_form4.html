@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load bootstrap %}
+
+{% block content %}
+
+<div class="container">
+	<form class="form-horizontal" action="." method="POST">
+	    <legend>Cadastrar</legend>
+	    {% csrf_token %}
+	    {{ form.movie|bootstrap_horizontal }}
+	    {{ form.category|bootstrap_horizontal }}
+	    {{ form.distributor|bootstrap_horizontal }}
+	    {{ form.raised|bootstrap_horizontal }}
+	    {{ form.liked|bootstrap_horizontal }}
+	    {{ form.release|bootstrap_horizontal }}
+
+		<div class="form-group">
+	      <div class="col-sm-10 col-sm-offset-2">
+	        <button type="submit" id="id_submit" class="btn btn-primary">Salvar</button>
+	      </div>
+	    </div>
+	</form>
+</div>
+
+{% endblock content %}

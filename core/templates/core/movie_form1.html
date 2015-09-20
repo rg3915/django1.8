@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+	<form class="form-horizontal" action="." method="POST">
+	    <legend>Cadastrar</legend>
+	    {% csrf_token %}
+
+	    <div class="form-group">
+	    	<label for="id_movie">Filme</label>
+	    	<input type="text" id="id_movie" name="movie" class="form-control">
+	    </div>
+		
+	    <div class="form-group">
+	    	<label for="id_category">Categoria</label>
+	    	<input type="text" id="id_category" name="category" class="form-control" placeholder="Tem que usar select">
+	    </div>
+
+	    <div class="form-group">
+	    	<label for="id_distributor">Distribuidor</label>
+	    	<input type="text" id="id_distributor" name="distributor" class="form-control" placeholder="Tem que usar select">
+	    </div>
+
+	    <div class="form-group">
+	    	<label for="id_raised">Arrecadou</label>
+	    	<input type="number" id="id_raised" name="raised" class="form-control">
+	    </div>
+
+	    <div class="form-group">
+			<div class="checkbox">
+                <label>
+                    <input checked="checked" id="id_liked" name="liked" type="checkbox" /> <span>Gostou</span>
+                </label>
+            </div>
+	    </div>
+
+	    <div class="form-group">
+	    	<label for="id_release">Lançamento</label>
+	    	<input type="text" id="id_release" name="release" class="form-control">
+	    </div>
+
+
+		<div class="form-group">
+	      <div class="col-sm-10 col-sm-offset-2">
+	        <button type="submit" id="id_submit" class="btn btn-primary">Salvar</button>
+	      </div>
+	    </div>
+	</form>
+</div>
+
+{% endblock content %}

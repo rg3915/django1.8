@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+	<div class="page-header">
+	    <a class="btn btn-primary pull-right" href="{% url 'movie_add' %}"><i class="glyphicon glyphicon-plus"></i> Adicionar filme</a>
+		<h2><a href="?great_movie=1">Filme de maior bilheteria</a></h2>
+	</div>
+
+	{% if movies %}
+		<table class="table table-striped">
+		    <thead>
+		        <tr>
+		            <th>Filme</th>
+		            <th>Categoria</th>
+		            <th>Distribuidor</th>
+					<th>Bilheteria (bilhões)</th>
+					<th>Lançamento</th>
+					<th>Gostou</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    {% for movie in movies %}
+		        <tr>
+	            	<td><a href="{{ movie.get_absolute_url }}">{{ movie.movie }}</a></td>
+	            	<td>{{ movie.category }}</td>
+	            	<td>{{ movie.distributor }}</td>
+	            	<td>U$ {{ movie.raised }}</td>
+	            	<td>{{ movie.release|date:"d/m/Y" }}</td>
+	            	{% if movie.liked %}
+						<td><span class="glyphicon glyphicon-ok-sign" style="color: #44AD41"></span></td>
+					{% else %}
+						<td><span class="glyphicon glyphicon-minus-sign" style="color: #DE2121"></span></td>
+					{% endif %}
+		        </tr>
+		    {% endfor %}
+		    </tbody>
+		</table>
+	{% else %}
+		<p class="alert alert-warning">Sem itens na lista.</p>
+	{% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,236 @@
+[
+{
+  "model": "core.distributor",
+  "pk": 1,
+  "fields": {
+    "distributor": "Paramount Pictures"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 2,
+  "fields": {
+    "distributor": "Universal Pictures"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 3,
+  "fields": {
+    "distributor": "Walt Disney Pictures"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 4,
+  "fields": {
+    "distributor": "20th Century Fox"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 5,
+  "fields": {
+    "distributor": "Warner Bros."
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 6,
+  "fields": {
+    "distributor": "New Line Cinema"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 7,
+  "fields": {
+    "distributor": "Sony Pictures"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 8,
+  "fields": {
+    "distributor": "Universal Studios"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 9,
+  "fields": {
+    "distributor": "DreamWorks"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 10,
+  "fields": {
+    "distributor": "Columbia"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 11,
+  "fields": {
+    "distributor": "Lionsgate"
+  }
+},
+{
+  "model": "core.distributor",
+  "pk": 12,
+  "fields": {
+    "distributor": "Summit Entertainment"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 1,
+  "fields": {
+    "category": "a\u00e7\u00e3o"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 2,
+  "fields": {
+    "category": "anima\u00e7\u00e3o"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 3,
+  "fields": {
+    "category": "aventura"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 4,
+  "fields": {
+    "category": "comedia"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 5,
+  "fields": {
+    "category": "guerra"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 6,
+  "fields": {
+    "category": "suspense"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 1,
+  "fields": {
+    "release": "2012-03-23T03:00:00Z",
+    "distributor": 11,
+    "liked": true,
+    "category": 3,
+    "movie": "Jogos Vorazes",
+    "raised": "2.308"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 2,
+  "fields": {
+    "release": "2003-12-25T02:00:00Z",
+    "distributor": 6,
+    "liked": true,
+    "category": 3,
+    "movie": "O Senhor dos An\u00e9is: O Retorno do Rei",
+    "raised": "1.119"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 3,
+  "fields": {
+    "release": "2013-04-26T03:00:00Z",
+    "distributor": 3,
+    "liked": true,
+    "category": 1,
+    "movie": "Homem de Ferro 3",
+    "raised": "1.215"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 4,
+  "fields": {
+    "release": "2012-04-27T03:00:00Z",
+    "distributor": 3,
+    "liked": true,
+    "category": 1,
+    "movie": "Os Vingadores",
+    "raised": "1.519"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 5,
+  "fields": {
+    "release": "1998-01-16T02:00:00Z",
+    "distributor": 1,
+    "liked": true,
+    "category": 3,
+    "movie": "Titanic",
+    "raised": "2.186"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 6,
+  "fields": {
+    "release": "2009-11-18T02:00:00Z",
+    "distributor": 4,
+    "liked": true,
+    "category": 3,
+    "movie": "Avatar",
+    "raised": "2.787"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 7,
+  "fields": {
+    "release": "2007-03-30T03:00:00Z",
+    "distributor": 5,
+    "liked": true,
+    "category": 5,
+    "movie": "300",
+    "raised": "0.456"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 8,
+  "fields": {
+    "release": "2015-07-01T03:00:00Z",
+    "distributor": 5,
+    "liked": true,
+    "category": 1,
+    "movie": "O Exterminador do Futuro: G\u00eanesis",
+    "raised": "1.756"
+  }
+},
+{
+  "model": "core.movie",
+  "pk": 9,
+  "fields": {
+    "release": "2015-12-17T02:00:00Z",
+    "distributor": 3,
+    "liked": true,
+    "category": 3,
+    "movie": "Star Wars 7",
+    "raised": "2.100"
+  }
+}
+]

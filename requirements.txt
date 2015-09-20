@@ -1,0 +1,4 @@
+Django==1.8.4
+dj-database-url==0.3.0
+django-bootstrap-form==3.2
+selenium==2.47.1
