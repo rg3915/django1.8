@@ -26,4 +26,14 @@ load:
 run:
 	./manage.py runserver
 
+pdf:
+	latexmk -pdf -shell-escape django_tutorial.tex
+
+pvc:
+	latexmk -pdf -shell-escape -pvc django_tutorial.tex
+
+clear:
+	latexmk -c
+	rm *.nav *.snm *.vrb
+
 initial: install migrate createuser load

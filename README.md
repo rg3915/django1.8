@@ -85,6 +85,8 @@ http://www.marinamele.com/taskbuster-django-tutorial
 
 ![image](img/mtv1.png)
 
+![image](img/mtv2.png)
+
 
 ## ORM
 

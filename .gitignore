@@ -63,3 +63,12 @@ core/migrations
 
 *.pyc
 *.sqlite3
+
+*.aux
+*.latexmk
+*.fls
+*.nav
+*.out
+*.snm
+*.toc
+*.vrbr
