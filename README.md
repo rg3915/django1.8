@@ -973,7 +973,7 @@ https://toolbelt.heroku.com/debian
 	$ heroku login
 	$ echo "python-3.4.0" > runtime.txt
 	$ heroku create django18grupy
-	$ echo "web: gunicorn django18grupy.wsgi" > Procfile
+	$ echo "web: gunicorn myproject.wsgi" > Procfile
 	$ pip install dj-static gunicorn psycopg2
 	$ pip freeze > requirements.txt
 
@@ -986,6 +986,13 @@ https://toolbelt.heroku.com/debian
 	from dj_static import Cling
 
 	application = Cling(get_wsgi_application())
+
+### Edite o settings.py
+
+	DATABASES = {
+	    'default': dj_database_url.config(
+	        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'))
+	}
 
 Faça o push no GitHub.
 

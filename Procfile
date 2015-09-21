@@ -1,1 +1,1 @@
-web: gunicorn django18grupy.wsgi
+web: gunicorn myproject.wsgi
