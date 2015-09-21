@@ -980,7 +980,7 @@ https://toolbelt.heroku.com/debian
 ### Edite o wsgi.py
 
 	import os
-	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django1.8.settings")
+	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
 
 	from django.core.wsgi import get_wsgi_application
 	from dj_static import Cling
@@ -1001,6 +1001,7 @@ Agora, os comandos do heroku
 	$ heroku pg
 	$ heroku run python manage.py makemigrations
 	$ heroku run python manage.py migrate
+	$ heroku run python manage.py createsuperuser --username='admin' --email=''
 	$ heroku run python manage.py loaddata fixtures.json
 	$ heroku open
 

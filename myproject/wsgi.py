@@ -1,5 +1,5 @@
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django1.8.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
 
 from django.core.wsgi import get_wsgi_application
 from dj_static import Cling
