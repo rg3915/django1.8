@@ -89,7 +89,9 @@ http://www.marinamele.com/taskbuster-django-tutorial
 ## ORM
 
 Modelo (Classe) = Tabela
+
 Atributos = Colunas
+
 Objetos = Tuplas (Registros)
 
 
@@ -125,6 +127,7 @@ Objetos = Tuplas (Registros)
 * Download do python: https://www.python.org/downloads/windows/
 * Configurar as variáveis de ambiente (PATH)
 
+**Leia**: "Instalando e Configurando o Python e Django no Windows" - Thiago Corôa http://pythonclub.com.br/instalacao-python-django-windows.html
 
 ### Pip
 
@@ -870,6 +873,7 @@ Nosso formulário
 
 	$ python selenium/selenium_movie.py	
 
+**Leia**: "Testes com Selenium" - Jayme Neto https://goo.gl/sO7gLB
 
 ## Carregando dados de um json
 
