@@ -960,8 +960,49 @@ movie_list.html
 
 ## Deploy no Heroku
 
-em construção ...
+Você deve ter uma conta no **GitHub** e no **Heroku**.
 
+### Instale o heroku toolbelt
+
+	$ wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+https://toolbelt.heroku.com/debian
+
+### Crie o Runtime e o Procfile
+
+	$ heroku login
+	$ echo "python-3.4.0" > runtime.txt
+	$ heroku create django18grupy
+	$ echo "web: gunicorn django18grupy.wsgi" > Procfile
+	$ pip install dj-static gunicorn psycopg2
+	$ pip freeze > requirements.txt
+
+### Edite o wsgi.py
+
+	import os
+	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django1.8.settings")
+
+	from django.core.wsgi import get_wsgi_application
+	from dj_static import Cling
+
+	application = Cling(get_wsgi_application())
+
+Faça o push no GitHub.
+
+	$ git add .
+	$ git commit -m "config to heroku"
+	$ git push origin master
+
+Agora, os comandos do heroku
+
+	$ git push heroku master --force
+	$ heroku ps:scale web=1
+	$ heroku labs:enable user-env-compile
+	$ heroku pg
+	$ heroku run python manage.py makemigrations
+	$ heroku run python manage.py migrate
+	$ heroku run python manage.py loaddata fixtures.json
+	$ heroku open
 
 
 ## Awesome Django
