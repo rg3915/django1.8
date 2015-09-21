@@ -1013,6 +1013,7 @@ Agora, os comandos do heroku
 	$ heroku run python manage.py loaddata fixtures.json
 	$ heroku open
 
+https://devcenter.heroku.com/articles/getting-started-with-django
 
 ## Awesome Django
 
@@ -1138,7 +1139,7 @@ http://pycursos.com/django/
 
 ## YouTube
 
-* Python para Zumbis
-* Django para Iniciantes por Allisson Azevedo
-* CodingEntrepreneurs Try Django 1.8
+* Python para Zumbis - https://goo.gl/swsHmw
+* Django para Iniciantes por Allisson Azevedo - https://goo.gl/38ttOb
+* CodingEntrepreneurs Try Django 1.8 - https://goo.gl/HNxRou
 
