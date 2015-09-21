@@ -18,12 +18,12 @@
 
 ## Ementa
 
-* MTV e ORM
-* 1 min de Python
-* Instalação
-* Criar um ambiente
-* Criar o projeto e a App
-
+* [MTV e ORM](#mvc-x-mtv)
+* [1 min de Python](#1-min-de-python)
+* [Instalação](#o-que-voc%C3%AA-precisa)
+* [Criar o ambiente](#criando-o-ambiente)
+* [Criar o projeto e a App](#criando-o-projeto-e-a-app)
+* [Deploy no Heroku](#deploy-no-heroku)
 
 ## Objetivo
 
