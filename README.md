@@ -1001,6 +1001,7 @@ Agora, os comandos do heroku
 	$ heroku pg
 	$ heroku run python manage.py makemigrations
 	$ heroku run python manage.py migrate
+	$ heroku pg
 	$ heroku run python manage.py createsuperuser --username='admin' --email=''
 	$ heroku run python manage.py loaddata fixtures.json
 	$ heroku open
