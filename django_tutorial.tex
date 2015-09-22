@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{graphics,amssymb,amsfonts,amsmath}
 \usepackage{pgf,tikz}
-\usetikzlibrary{shapes,shapes.geometric,positioning}
+\usetikzlibrary{shapes,shapes.geometric,positioning,trees}
 \DeclareGraphicsExtensions{.jpg,.pdf,.mps,.png}
 \usepackage[latin1]{inputenc}
 \usepackage[brazil]{babel}
@@ -17,7 +17,7 @@
 \usecolortheme{orchid}
 \usefonttheme[onlymath]{serif}
 
-%colocando número de p\'aginas no slide.
+%colocando n\'umero de p\'aginas no slide.
 \setbeamertemplate{footline}[frame number]
 
 % desativando os botoes de navegacao.
@@ -31,6 +31,13 @@
 
 % Ambiente bash
 \newminted{bash}{bgcolor=gray}
+
+% Ambiente python
+\newminted{python}{bgcolor=green!25!white}
+
+\tikzstyle{every node}=[anchor=west]
+\tikzstyle{selected}=[draw=red,fill=green!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
 
 \title{Tutorial Django 1.8}
 \author{R\'egis da Silva {\texorpdfstring{\color{blue}}{ }@rg3915}\\ e\\ Jayme Neto \texorpdfstring{\color{blue}}{ }@kalkehcoisa}
@@ -200,7 +207,7 @@ Segundo Django Brasil,
 
 \begin{frame}[fragile]\frametitle{1 min de Python}
 
-\begin{minted}{python}
+\begin{pythoncode}
     public static void main (String[] args){
         System.out.println("Desculpa");
     } # oops
@@ -211,7 +218,13 @@ Segundo Django Brasil,
         return a + b
 
     soma(25,9)
+\end{pythoncode}
 
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{1 min de Python}
+
+\begin{pythoncode}
     lista = ['a', 10, 5.5]
     for i in lista:
         print(i)
@@ -219,452 +232,729 @@ Segundo Django Brasil,
     for i in range(10):
         print(i)
 
-\end{minted}
+\end{pythoncode}
 
 \end{frame}
 
-% ## O que você precisa?
-% 
-% * Python (2 ou 3)
-% * Pip
-% * VirtualEnv
-% 
-% ### Instalando Python no Windows
-% 
-% * Download do python: https://www.python.org/downloads/windows/
-% * Configurar as vari\'aveis de ambiente (PATH)
-% 
-% **Leia**: "Instalando e Configurando o Python e Django no Windows" - Thiago Corôa http://pythonclub.com.br/% instalacao-python-django-windows.html
-% 
-% ### Pip
-% 
-% * Gerenciador de pacotes do python
-% * https://pip.pypa.io/en/latest/installing.html#install-pip
-% 
-% 
-% ### Instalando no Linux
-% 
-% 
-% * Instale primeiro o **pip** http://pip.readthedocs.org/en/latest/
-% 
-% Primeira op\c c\~ao
-% 
-    % $ wget https://bootstrap.pypa.io/get-pip.py
-    % $ sudo python get-pip.py
-% 
-% Segunda op\c c\~ao
-% 
-    % $ sudo apt-get install -y python-pip
-% 
-% * **VirtualEnv** https://virtualenv.pypa.io/en/latest/
-% 
-% Digite
-% 
-    % $ sudo pip install virtualenv
-    % $ # ou
-    % $ sudo apt-get install -y virtualenv
-% 
-% 
-% 
-% ## O que vamos considerar no nosso projeto?
-% 
-% * Ambiente: venv
-% * Projeto: myproject
-% * App: core
-% 
-% 
-% 
-% ## Criando o ambiente
-% 
-% Vamos criar um ambiente usando o **Python 3**, ent\~ao digite
-% 
-	% $ virtualenv -p /usr/bin/python3 venv
-% 
-% onde ``venv`` é o nome do ambiente.
-% 
-% Entre na pasta
-% 
-	% $ cd venv
-% 
-% e ative o ambiente
-% 
-	% $ source bin/activate
-% 
-% Obs: todos os pacotes instalados com o ambiente ativado ser\~ao instalados dentro do ambiente e visíveis % somente nele.
-% 
-% **Dica**: No Linux, edite o arquivo `~/.bashrc`
-% 
-	% alias sa='source bin/activate;'
-% 
-% Assim você cria atalhos para ativar seus ambientes:
-% 
-	% $ sa
-% 
-% **Dica**: Para diminuir o caminho do prompt digite
-% 
-	% $ PS1="(`basename \"$VIRTUAL_ENV\"`):/\W$ "
-% 
-% O caminho vai ficar assim
-% 
-	% (venv):/venv$
-% 
-% Onde `(venv)` é o nome do ambiente e `:/venv$` é a pasta atual.
-% 
-% Para desativar o ambiente digitamos
-% 
-	% (venv):/venv$ deactivate
-% 
-% 
-% 
-% 
-% ## Instalando Django 1.8 + django-bootstrap-form
-% 
-	% $ pip install django==1.8.4 django-bootstrap-form
-% 
-% https://github.com/tzangms/django-bootstrap-form
-% 
-% Vendo o que foi instalado
-% 
-	% $ pip freeze
-	% Django==1.8.4
-	% django-bootstrap-form==3.2
-% 
-% Crie o *requirements.txt* (os ingredientes do bolo)
-% 
-	% $ pip freeze > requirements.txt
-% 
-% 
-% 
-% ## Criando o projeto e a App
-% 
-% https://docs.djangoproject.com/en/1.8/intro/tutorial01/
-% 
-% Para criar o **projeto** digite
-% 
-	% $ django-admin.py startproject myproject .
-% 
-% repare no ponto final do comando, isto permite que o arquivo `manage.py` fique na pasta "principal", pasta % **venv**.
-% 
-% Criando a **app**
-% 
-	% $ python manage.py startapp core
-	% ou
-	% $ ./manage.py startapp core
-	% ou
-	% $ manage startapp core
-% 
-% **Dica**: para funcionar o último comando você deve editar o `~/.bashrc`
-% 
-	% $ alias manage='python $VIRTUAL_ENV/manage.py'
-% 
-% O que temos até aqui?
-% 
-	% $ tree myproject; tree core
-% 
-% 
-	% .
-	% ├── manage.py
-	% ├── myproject
-	% │   ├── __init__.py
-	% │   ├── settings.py
-	% │   ├── urls.py
-    % │   └── wsgi.py
-	% ├── core
-	% │   ├── admin.py
-	% │   ├── __init__.py
-	% │   ├── models.py
-	% │   ├── tests.py
-    % │   └── views.py
-% 
-% 
-% ## Django funcionando em nível 0
-% 
-% Criando a primeira migra\c c\~ao
-% 
-	% $ python manage.py migrate
-% 
-% Obs: o comando ``migrate`` se chamava ``syncdb`` e s\'o era capaz de criar novas tabelas no banco de dados. % J\'a o ``migrate`` consegue remover e alterar tabelas. Criado baseado nas funcionalidades do Django South.
-% 
-	% $ python manage.py runserver
-% 	
-% Por padr\~ao ele est\'a rodando na porta 8000
-% 
-% http://localhost:8000/ ou http://127.0.0.1:8000/
-% 
-% ou
-% 
-	% $ python manage.py runserver <PORTA>
-	% $ python manage.py runserver 8080
-% 
-% http://localhost:8080/
-% 
-% ![image](img/it_worked.png)
-% 
+\begin{frame}\frametitle{O que voc\^e precisa?}
+
+\begin{itemize}
+	\item Python (2 ou 3)
+	\item Pip
+	\item VirtualEnv
+\end{itemize}\textbf{}
+
+\end{frame}
+
+\begin{frame}\frametitle{Instalando Python no Windows}
+
+\begin{itemize}
+	\item Download do python: \url{https://www.python.org/downloads/windows/}
+	\item Configurar as vari\'aveis de ambiente (PATH)
+\end{itemize}
+
+\textbf{Leia}: \textit{Instalando e Configurando o Python e Django no Windows} - Thiago Cor\^oa \url{http://pythonclub.com.br/instalacao-python-django-windows.html}
+
+\
+
+\textbf{Pip}
+\begin{itemize}
+	\item Gerenciador de pacotes do python
+	\item \url{https://pip.pypa.io/en/latest/installing.html\#install-pip}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Instalando no Linux}
+
+\begin{itemize}
+	\item \textbf{Pip} \url{http://pip.readthedocs.org/en/latest/}
+\end{itemize}
+
+Primeira op\c c\~ao
+
+\begin{bashcode}
+    $ wget https://bootstrap.pypa.io/get-pip.py
+    $ sudo python get-pip.py
+\end{bashcode}
+
+Segunda op\c c\~ao
+
+\begin{bashcode}
+    $ sudo apt-get install -y python-pip
+\end{bashcode}
+
+
+\begin{itemize}
+	\item \textbf{VirtualEnv} \url{https://virtualenv.pypa.io/en/latest/}
+\end{itemize}
+
+Digite
+
+\begin{bashcode}
+    $ sudo pip install virtualenv
+    $ # ou
+    $ sudo apt-get install -y virtualenv
+\end{bashcode}
+
+\end{frame}
+
+\begin{frame}\frametitle{O que vamos considerar no nosso projeto?}
+
+\begin{itemize}
+ \item \Large{Ambiente: venv}
+ \item \Large{Projeto: myproject}
+ \item \Large{App: core}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Criando o ambiente}
+
+Vamos criar um ambiente usando o Python 3, ent\~ao digite
+
+\begin{bashcode}
+	$ virtualenv -p /usr/bin/python3 venv
+\end{bashcode}
+
+onde \textit{venv} \'e o nome do ambiente.
+
+\
+
+Entre na pasta
+
+\begin{bashcode}
+	$ cd venv
+\end{bashcode}
+
+\
+
+e ative o ambiente
+
+\begin{bashcode}
+	$ source bin/activate
+\end{bashcode}
+
+\
+
+Obs: todos os pacotes instalados com o ambiente ativado ser\~ao instalados dentro do ambiente e vis\'iveis somente nele.
+\end{frame}
+
+\begin{frame}[fragile]
+\textbf{Dica}: No Linux, edite o arquivo \textit{$\sim$/.bashrc}
+
+\begin{bashcode}
+	alias sa='source bin/activate;'
+\end{bashcode}
+
+\
+
+Assim voc\^e cria atalhos para ativar seus ambientes:
+
+\begin{bashcode}
+	$ sa
+\end{bashcode}
+
+\
+
+\textbf{Dica}: Para diminuir o caminho do prompt digite
+
+\begin{bashcode}
+	$ PS1="(`basename \"$VIRTUAL_ENV\"`):/\W$ "
+\end{bashcode}
+
+\
+
+O caminho vai ficar assim
+
+\begin{bashcode}
+	(venv):/venv$
+\end{bashcode}
+
+\
+
+Onde \textit{(venv)} \'e o nome do ambiente e \textit{:/venv\$} \'e a pasta atual.
+
+\
+
+Para desativar o ambiente digitamos
+
+\begin{bashcode}
+	(venv):/venv$ deactivate
+\end{bashcode}
+
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Instalando Django 1.8 + django-bootstrap-form}
+
+\begin{bashcode}
+	$ pip install django==1.8.4 django-bootstrap-form
+\end{bashcode} 
+
+\
+
+\url{https://github.com/tzangms/django-bootstrap-form}
+
+\
+
+Vendo o que foi instalado
+
+\begin{bashcode}
+	$ pip freeze
+	Django==1.8.4
+	django-bootstrap-form==3.2
+\end{bashcode}
+
+\
+
+\
+
+Crie o \textit{requirements.txt} (os ingredientes do bolo)
+
+\begin{bashcode}
+	$ pip freeze > requirements.txt
+\end{bashcode}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Criando o projeto e a App}
+
+\url{https://docs.djangoproject.com/en/1.8/intro/tutorial01/}
+
+\
+
+Para criar o \textbf{projeto} digite
+
+\begin{bashcode}
+	$ django-admin.py startproject myproject .
+\end{bashcode}
+
+\
+
+repare no ponto final do comando, isto permite que o arquivo \textit{manage.py} fique na pasta "principal", pasta \textit{venv}.
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+Criando a \textbf{app}
+
+\begin{bashcode}
+	$ python manage.py startapp core
+	ou
+	$ ./manage.py startapp core
+	ou
+	$ manage startapp core
+\end{bashcode}
+
+\
+
+\
+
+\textbf{Dica}: para funcionar o \'ultimo comando voc\^e deve editar o \textit{$\sim$/.bashrc}
+
+\begin{bashcode}
+	$ alias manage='python $VIRTUAL_ENV/manage.py'
+\end{bashcode}
+
+\
+
+O que temos at\'e aqui?
+
+\begin{bashcode}
+	$ tree myproject; tree core
+\end{bashcode}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {.}
+    child { node {manage.py}}
+    child { node [selected] {myproject}
+      child { node {\_\_init\_\_.py}}
+      child { node [optional] {settings.py}}
+      child { node [optional] {urls.py}}
+      child { node {wsgi.py}}
+    }
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child { node [selected] {core}
+      child { node [optional] {admin.py}}
+      child { node {\_\_init\_\_.py}}
+      child { node [optional] {models.py}}
+      child { node [optional] {tests.py}}
+      child { node [optional] {views.py}}
+    };
+\end{tikzpicture}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Django funcionando em n\'ivel 0}
+
+Criando a primeira migra\c c\~ao
+
+\begin{bashcode}
+	$ python manage.py migrate
+\end{bashcode}
+
+\
+
+\textbf{Obs}: o comando \texttt{migrate} se chamava \texttt{syncdb} e s\'o era capaz de criar novas tabelas no banco de dados. J\'a o \texttt{migrate} consegue remover e alterar tabelas. Criado baseado nas funcionalidades do Django South.
+
+\
+
+Rodando o projeto
+
+\begin{bashcode}
+	$ python manage.py runserver
+\end{bashcode}
+
+\
+
+Por padr\~ao ele est\'a rodando na porta 8000
+
+\url{http://localhost:8000/} ou \url{http://127.0.0.1:8000/}
+
+ou
+
+\begin{bashcode}
+	$ python manage.py runserver <PORTA>
+	$ python manage.py runserver 8080
+\end{bashcode}
+
+\url{http://localhost:8080/}
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[width=.9\paperwidth]{img/it_worked.png}
+	\end{figure}
+
+\end{frame}
+
+% \begin{frame}
+
 % ### Django South
-% 
+
 % * Detecta alterações nos models.py e gera scripts para ajustar o banco de dados
 % * Faz "versionamento" de bases de dados
 % * Permite migra\c c\~ao de bases dados de um SGBD para outro
-% 
-% ## O mínimo - nível 1: settings, views, urls
-% 
-% 
-	% .
-	% ├── myproject
-	% │   ├── ...
-	% │   ├── settings.py
-	% │   └── urls.py
-	% ├── core
-	% │   ├── ...
-    % │   └── views.py
-% 
-% 
-% ### Editando settings.py
-% 
-	% INSTALLED_APPS = (
-	    % ...
-	    % 'core',
-	% )
-% 
-% 
-% ### Editando views.py
-% 
-	% # -*- coding: utf-8 -*-
-	% # from django.shortcuts import render
-	% from django.http import HttpResponse
-% 
-% 
-	% def home(request):
-	    % return HttpResponse('<h1>Django</h1><h3>Bem vindo ao Grupy-SP</h3>')
-% 
-% 
-% 
-% 
-% ### Editando urls.py
-% 
-	% from django.conf.urls import include, url
-% 
-	% urlpatterns = [
-	    % url(r'^$', 'core.views.home'),
-	    % url(r'^admin/', include(admin.site.urls)),
-	% ]
-% 
-% Ou
-% 
-	% from django.conf.urls import patterns, include, url
-% 
-	% urlpatterns = patterns(
-		% 'core.views',
-	    % url(r'^$', 'home'),
-	    % url(r'^admin/', include(admin.site.urls)),
-	% )
-% 
-% ![image](img/HttpResponse.png)
-% 
-% 
-% 
-% ### Admin
-% 
-	% $ python manage.py createsuperuser --username='admin' --email=''
-% 
-% ![image](img/admin1.png)
-% 
-% ![image](img/admin2.png)
-% 
-% 
-% 
-% 
-% ## Tocando o barco
-% 
-% 
-% ## Editando settings.py
-% 
-% 
-	% LANGUAGE_CODE = 'pt-br'
-% 
-	% TIME_ZONE = 'America/Sao_Paulo'
-% 
-	% LOGIN_URL = '/admin/login'
-% 
-% 
-% ## Testes
-% 
-% ![image](img/teste03.png)
-% 
-% ### Teste: Verificar se existe a p\'agina *index.html*.
-% 
-	% from django.test import TestCase
-% 
-% 
-	% class HomeTest(TestCase):
-% 
-	    % def setUp(self):
-	        % self.resp = self.client.get('/')
-% 
-	    % def test_get(self):
-	        % ''' get / deve retornar status code 200. '''
-	        % self.assertEqual(200, self.resp.status_code)
-% 
-	    % def test_template(self):
-	        % ''' Home deve usar template index.html '''
-	        % self.assertTemplateUsed(self.resp, 'index.html')
-% 
-% 
-% **Leia**: "pytest: escreva menos, teste mais" - Erick Wilder de Oliveira - https://goo.gl/8E9FB1 
-% 
-% 
-% ## Editando views.py
-% 
-	% from django.shortcuts import render
-	% # from django.http import HttpResponse
-% 
-	% # def home(request):
-	% #     return HttpResponse('<h1>Django</h1><h3>Bem vindo ao Grupy-SP</h3>')
-% 
-	% def home(request):
-	    % return render(request, 'index.html')
-% 
-% 
-% ## Criando o index.html
-% 
-% Estando na pasta `venv` digite
-% 
-	% $ mkdir -p core/templates
-	% $ echo "<html><body><h1>Tutorial Django</h1><h3>Bem vindo ao Grupy-SP</h3></body></html>" > core/% templates/index.html
-% 
-% 
-% ## Editando models.py
-% 
-% **B\'asico**: Filmes
-% 
-% ![image](img/diagram.png)
-% 
-% 
-	% # -*- coding: utf-8 -*-
-	% from django.db import models
-% 
-% 
-	% class Distributor(models.Model):
-	    % distributor = models.CharField('distribuidor', max_length=50, unique=True)
-% 
-	    % class Meta:
-	        % ordering = ['distributor']
-	        % verbose_name = 'distribuidor'
-	        % verbose_name_plural = 'distribuidores'
-% 
-	    % def __str__(self):
-	        % return self.distributor
-% 
-% 
-	% class Category(models.Model):
-	    % category = models.CharField('categoria', max_length=50, unique=True)
-% 
-	    % class Meta:
-	        % ordering = ['category']
-	        % verbose_name = 'categoria'
-	        % verbose_name_plural = 'categorias'
-% 
-	    % def __str__(self):
-	        % return self.category
-% 
-% 
-	% class Movie(models.Model):
-	    % movie = models.CharField('filme', max_length=100)
-	    % category = models.ForeignKey(
-	        % 'Category', verbose_name='categoria', related_name='movie_category')
-	    % distributor = models.ForeignKey(
-	        % 'Distributor', verbose_name='distribuidor', related_name='movie_distributor')
-	    % raised = models.DecimalField('arrecadou', max_digits=4, decimal_places=3)
-	    % liked = models.BooleanField('gostou', default=True)
-	    % release = models.DateTimeField(u'lançamento')
-% 
-	    % class Meta:
-	        % ordering = ['-release']
-	        % verbose_name = 'filme'
-	        % verbose_name_plural = 'filmes'
-% 
-	    % def __str__(self):
-	        % return self.movie
-% 
-% 
-% ## Tipos de campos
-% 
-% * BooleanField
-% * CharField
-% * DateField
-% * DateTimeField
-% * DecimalField
-% * DurationField
-% * EmailField
-% * FileField
-% * FloatField
-% * ImageField
-% * IntegerField
-% * NullBooleanField
-% * PositiveIntegerField
-% * PositiveSmallIntegerField
-% * SlugField
-% * SmallIntegerField
-% * TextField
-% * TimeField
-% * ForeignKeyField
-% * ManyToManyField
-% * OneToOneField
-% 
-% 
-% https://docs.djangoproject.com/en/1.8/ref/models/fields/
-% 
-% 
-% 
-% ## Atualizando o banco
-% 
-	% $ python manage.py makemigrations
-	% $ python manage.py migrate
-% 
-% 
-% ## shell
-% 
-% Explorando um pouco as queryset.
-% 
-	% $ python manage.py shell
-	% Python 3.4.0 (default, Jun 19 2015, 14:18:46) 
-	% [GCC 4.8.2] on linux
-	% Type "help", "copyright", "credits" or "license" for more information.
-	% (InteractiveConsole)
-	% >>> 
-% 
-% Precisamos importar o models.
-% 
-	% >>> from core.models import Distributor, Category, Movie
-% 
-% Todos os comandos est\~ao em shell/shell.py
-% 	
-	% $ manage shell < shell/distributors.py
-	% $ manage shell < shell/movies.py
-% 
-% 
-% https://docs.djangoproject.com/en/1.8/ref/models/querysets/
-% 
-% https://pt.wikipedia.org/wiki/Lista_de_filmes_de_maior_bilheteria
-% 
-% ## Admin
-% 
-	% from django.contrib import admin
-	% from .models import Distributor, Category, Movie
-% 
-	% admin.site.register(Distributor)
-	% admin.site.register(Category)
-	% admin.site.register(Movie)
-% 
-% 
-% ## Criando os templates
-% 
-	% $ mkdir core/templates/core
-	% $ touch core/templates/{base.html,menu.html}
-	% $ touch core/templates/core/{movie_list.html,movie_detail.html,movie_form.html}
-% 
-% Temos
-% 
+
+% \end{frame}
+
+
+\begin{frame}\frametitle{O m\'inimo - n\'ivel 1: settings, views, urls}
+
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {.}
+    child { node [selected] {myproject}
+      child { node {...}}
+      child { node {settings.py}}
+      child { node {urls.py}}
+    }
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child { node [selected] {core}
+      child { node {...}}
+      child { node {views.py}}
+    };
+\end{tikzpicture}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Editando settings.py}
+
+\begin{pythoncode}
+	
+	INSTALLED_APPS = (
+	    ...
+	    'core',
+	)
+\end{pythoncode}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Editando views.py}
+
+\begin{pythoncode}
+	# -*- coding: utf-8 -*-
+	# from django.shortcuts import render
+	from django.http import HttpResponse
+
+	def home(request):
+	    return HttpResponse('<h1>Django</h1>
+	                         <h3>Bem vindo ao Grupy-SP</h3>')
+\end{pythoncode}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Editando urls.py}
+
+\begin{pythoncode}
+from django.conf.urls import include, url
+
+urlpatterns = [
+    url(r'^$', 'core.views.home'),
+    url(r'^admin/', include(admin.site.urls)),
+]
+\end{pythoncode}
+
+\
+
+Ou
+
+\
+
+\begin{pythoncode}
+from django.conf.urls import patterns, include, url
+
+urlpatterns = patterns(
+    'core.views',
+    url(r'^$', 'home'),
+    url(r'^admin/', include(admin.site.urls)),
+)
+\end{pythoncode}
+
+\end{frame}
+
+\begin{frame}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[width=.9\paperwidth]{img/HttpResponse.png}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Admin}
+
+\begin{bashcode}
+	$ python manage.py createsuperuser --username='admin' --email=''
+\end{bashcode}
+
+\end{frame}
+
+\begin{frame}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[height=.9\paperheight]{img/admin1.png}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[width=.9\paperwidth]{img/admin2.png}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Tocando o barco}
+
+\textbf{Editando settings.py}
+
+\begin{pythoncode}
+	LANGUAGE_CODE = 'pt-br'
+
+	TIME_ZONE = 'America/Sao_Paulo'
+
+	LOGIN_URL = '/admin/login'
+\end{pythoncode}
+
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Testes}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[width=.9\paperwidth]{img/teste03.png}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\textbf{Teste}: Verificar se existe a p\'agina \textit{index.html}.
+
+\begin{pythoncode}
+	from django.test import TestCase
+
+	class HomeTest(TestCase):
+
+	    def setUp(self):
+	        self.resp = self.client.get('/')
+
+	    def test_get(self):
+	        ''' get / deve retornar status code 200. '''
+	        self.assertEqual(200, self.resp.status_code)
+
+	    def test_template(self):
+	        ''' Home deve usar template index.html '''
+	        self.assertTemplateUsed(self.resp, 'index.html')
+\end{pythoncode}
+
+\
+
+\textbf{Leia}: \textit{pytest: escreva menos, teste mais} - Erick Wilder de Oliveira - \url{https://goo.gl/8E9FB1} 
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Editando views.py}
+
+\begin{pythoncode}
+	from django.shortcuts import render
+	# from django.http import HttpResponse
+
+	# def home(request):
+	#     return HttpResponse('<h1>Django</h1><h3>Bem vindo ao Grupy-SP</h3>')
+
+	def home(request):
+	    return render(request, 'index.html')
+\end{pythoncode}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Criando o index.html}
+
+Estando na pasta \texttt{venv} digite
+
+\begin{bashcode}
+	$ mkdir -p core/templates
+	$ echo "<html><body><h1>Tutorial Django</h1>
+	        <h3>Bem vindo ao Grupy-SP</h3></body>
+	        </html>" > core/templates/index.html
+\end{bashcode}
+
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Editando models.py - Filmes}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[width=.8\paperwidth]{img/diagram.png}
+	\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Editando models.py}
+
+\begin{pythoncode}
+	# -*- coding: utf-8 -*-
+	from django.db import models
+
+	class Distributor(models.Model):
+	    distributor = models.CharField('distribuidor',
+	                                   max_length=50, unique=True)
+
+	    class Meta:
+	        ordering = ['distributor']
+	        verbose_name = 'distribuidor'
+	        verbose_name_plural = 'distribuidores'
+
+	    def __str__(self): # ou __unicode__ no Python 2
+	        return self.distributor
+\end{pythoncode}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{pythoncode}
+	class Category(models.Model):
+	    category = models.CharField('categoria',
+	                                max_length=50, unique=True)
+
+	    class Meta:
+	        ordering = ['category']
+	        verbose_name = 'categoria'
+	        verbose_name_plural = 'categorias'
+
+	    def __str__(self):
+	        return self.category
+
+\end{pythoncode}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\begin{pythoncode}
+	class Movie(models.Model):
+	    movie = models.CharField('filme', max_length=100)
+	    category = models.ForeignKey(
+	        'Category', verbose_name='categoria',
+	        related_name='movie_category')
+	    distributor = models.ForeignKey(
+	        'Distributor', verbose_name='distribuidor',
+	        related_name='movie_distributor')
+	    raised = models.DecimalField(
+	             'arrecadou', max_digits=4, decimal_places=3)
+	    liked = models.BooleanField('gostou', default=True)
+	    release = models.DateTimeField(u'lancamento')
+	    class Meta:
+	        ordering = ['-release']
+	        verbose_name = 'filme'
+	        verbose_name_plural = 'filmes'
+	    def __str__(self):
+	        return self.movie
+\end{pythoncode}
+
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Tipos de campos}
+
+\begin{minipage}[t]{.45\linewidth}
+	\begin{itemize}
+		\item BooleanField
+		\item CharField
+		\item DateField
+		\item DateTimeField
+		\item DecimalField
+		\item DurationField
+		\item EmailField
+		\item FileField
+		\item FloatField
+		\item ImageField
+	\end{itemize}
+\end{minipage}
+\begin{minipage}[t]{.45\linewidth}
+	\begin{itemize}
+		\item NullBooleanField
+		\item PositiveIntegerField
+		\item PositiveSmallIntegerField
+		\item SlugField
+		\item SmallIntegerField
+		\item TextField
+		\item TimeField
+		\item ForeignKeyField
+		\item ManyToManyField
+		\item OneToOneField
+	\end{itemize}
+\end{minipage}
+
+\
+
+\
+
+\url{https://docs.djangoproject.com/en/1.8/ref/models/fields/}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Atualizando o banco}
+
+\begin{bashcode}
+	$ python manage.py makemigrations
+	$ python manage.py migrate
+\end{bashcode}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{shell}
+
+Explorando um pouco as queryset.
+
+\begin{bashcode}
+	$ python manage.py shell
+	Python 3.4.0 (default, Jun 19 2015, 14:18:46) 
+	[GCC 4.8.2] on linux
+	Type "help", "copyright", "credits" or "license" for more information.
+	(InteractiveConsole)
+	>>> 
+\end{bashcode}
+
+\
+
+\
+
+Precisamos importar o models.
+
+\begin{bashcode}
+	>>> from core.models import Distributor, Category, Movie
+\end{bashcode}
+
+\
+
+\
+
+Todos os comandos est\~ao em \texttt{shell/shell.py}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{shell}
+
+\begin{bashcode}
+	$ manage shell < shell/distributors.py
+	$ manage shell < shell/movies.py
+\end{bashcode}
+
+\
+
+\
+
+\url{https://docs.djangoproject.com/en/1.8/ref/models/querysets/}
+
+\url{https://pt.wikipedia.org/wiki/Lista_de_filmes_de_maior_bilheteria}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Admin}
+
+\begin{pythoncode}
+	from django.contrib import admin
+	from .models import Distributor, Category, Movie
+
+	admin.site.register(Distributor)
+	admin.site.register(Category)
+	admin.site.register(Movie)
+\end{pythoncode}
+
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Criando os templates}
+
+\begin{bashcode}
+	$ mkdir core/templates/core
+	$ touch core/templates/{base.html,menu.html}
+	$ touch core/templates/core/{movie_list.html,
+	                             movie_detail.html,
+	                             movie_form.html}
+\end{bashcode}
+
+\end{frame}
+
 	% core
 	% ├── admin.py
 	% ├── models.py
@@ -717,7 +1007,9 @@ Segundo Django Brasil,
 		% html
 	% {% endblock content %}
 % 
-% ## Herança de Templates
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Herança de Templates}
 % 
 % 
 % **index.html**
@@ -796,7 +1088,9 @@ Segundo Django Brasil,
 % 
 % 
 % 
-% ## Visualizando os dados com json
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Visualizando os dados com json}
 % 
 % views.py
 % 
@@ -811,7 +1105,9 @@ Segundo Django Brasil,
 % 
 % 
 % 
-% ## Editando a views.py
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Editando a views.py}
 % 
 	% def movie_list(request):
 	    % movies = Movie.objects.all()
@@ -841,7 +1137,9 @@ Segundo Django Brasil,
 % 
 % 
 % 
-% ## Formul\'arios
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Formul\'arios}
 % 
 % ### Editando o views.py para formul\'ario
 % 
@@ -976,18 +1274,24 @@ Segundo Django Brasil,
     % url(r'^movie/add/$', MovieCreate.as_view(), name='movie_add'),
 % 
 % 
-% ## Um pouco de Selenium
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Um pouco de Selenium}
 % 
 	% $ python selenium/selenium_movie.py	
 % 
 % **Leia**: "Testes com Selenium" - Jayme Neto https://goo.gl/sO7gLB
 % 
-% ## Carregando dados de um json
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Carregando dados de um json}
 % 
 	% $ python manage.py loaddata fixtures.json
 % 
 % 
-% ## Visualizando os Detalhes
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Visualizando os Detalhes}
 % 
 % views.py
 % 
@@ -1048,7 +1352,9 @@ Segundo Django Brasil,
 % ![image](img/detalhes.png)
 % 
 % 
-% ## Resumo dos comandos
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Resumo dos comandos}
 % 
 	% $ django-admin.py startproject myproject .
 	% $ python manage.py startapp core
@@ -1065,9 +1371,11 @@ Segundo Django Brasil,
 % 
 % 
 % 
-% ## Deploy no Heroku
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Deploy no Heroku}
 % 
-% Você deve ter uma conta no **GitHub** e no **Heroku**.
+% Voc\^e deve ter uma conta no **GitHub** e no **Heroku**.
 % 
 % ### Instale o heroku toolbelt
 % 
@@ -1122,7 +1430,9 @@ Segundo Django Brasil,
 % 
 % https://devcenter.heroku.com/articles/getting-started-with-django
 % 
-% ## Awesome Django
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Awesome Django}
 % 
 % https://github.com/rosarior/awesome-django
 % 
@@ -1209,7 +1519,9 @@ Segundo Django Brasil,
 % https://github.com/django-extensions/django-extensions/
 % 
 % 
-% ## Livros
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Livros}
 % 
 % * Django Essencial de Julia Elman da Novatec
 % 
@@ -1228,9 +1540,11 @@ Segundo Django Brasil,
 % 
 % 
 % 
-% ## Cursos
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{Cursos}
 % 
-% * Django presencial na CTNovatec (S\~ao Paulo) com Júlio C. Melanda, dias 03 e 04/10/15 (S\'ab e Dom)
+% * Django presencial na CTNovatec (S\~ao Paulo) com J\'ulio C. Melanda, dias 03 e 04/10/15 (S\'ab e Dom)
 % 
 % http://ctnovatec.com.br/cursos/trilha-python/curso-de-django/
 % 
@@ -1244,12 +1558,15 @@ Segundo Django Brasil,
 % 
 % 
 % 
-% ## YouTube
+% \end{frame}
+
+% \begin{frame}[fragile]\frametitle{YouTube}
 % 
 % * Python para Zumbis - https://goo.gl/swsHmw
 % * Django para Iniciantes por Allisson Azevedo - https://goo.gl/38ttOb
 % * CodingEntrepreneurs Try Django 1.8 - https://goo.gl/HNxRou
 
+% \end{frame}
 
 
 \end{document}

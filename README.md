@@ -447,7 +447,7 @@ Estando na pasta `venv` digite
 	        verbose_name = 'distribuidor'
 	        verbose_name_plural = 'distribuidores'
 
-	    def __str__(self):
+	    def __str__(self): # ou __unicode__ no Python 2
 	        return self.distributor
 
 
