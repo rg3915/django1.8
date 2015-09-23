@@ -591,7 +591,7 @@ Tags
 Exemplo:
 
 	{% if condicao %}
-
+		<!-- algum comando -->
 	{% endif %}
 
 	{% for item in objeto %}

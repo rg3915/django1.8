@@ -35,14 +35,17 @@
 % Ambiente python
 \newminted{python}{bgcolor=green!25!white}
 
+% Ambiente html
+\newminted{html}{bgcolor=cyan!25}
+
 \tikzstyle{every node}=[anchor=west]
 \tikzstyle{selected}=[draw=red,fill=green!30]
 \tikzstyle{optional}=[dashed,fill=gray!50]
 
 \title{Tutorial Django 1.8}
-\author{R\'egis da Silva {\texorpdfstring{\color{blue}}{ }@rg3915}\\ e\\ Jayme Neto \texorpdfstring{\color{blue}}{ }@kalkehcoisa}
-\institute{Grupy-SP}
-\date{\today}
+\author{R\'egis da Silva {\texorpdfstring{\color{blue}}{ }about.me/rg3915}\\ e\\ Jayme Neto \texorpdfstring{\color{blue}}{ }@kalkehcoisa}
+\institute{\url{github.com/grupy-sp/encontros}}
+\date{25 de Setembro de 2015}
 
 \begin{document}
 \justifying %Par\'agrafo justificado.
@@ -549,7 +552,7 @@ ou
 
 % ### Django South
 
-% * Detecta alterações nos models.py e gera scripts para ajustar o banco de dados
+% * Detecta altera\c c\~oes nos models.py e gera scripts para ajustar o banco de dados
 % * Faz "versionamento" de bases de dados
 % * Permite migra\c c\~ao de bases dados de um SGBD para outro
 
@@ -955,618 +958,672 @@ Todos os comandos est\~ao em \texttt{shell/shell.py}
 
 \end{frame}
 
-	% core
-	% ├── admin.py
-	% ├── models.py
-	% ├── templates
-	% │   ├── base.html
-	% │   ├── index.html
-	% │   ├── menu.html
-	% │   └── core
-	% │       ├── movie_detail.html
-	% │       ├── movie_form.html
-	% │       └── movie_list.html
-	% ├── tests.py
-	% └── views.py
-% 
-% ### Vari\'aveis
-% 
-% Acessando objetos
-% 
-	% {{ objeto }}
-% 
-% Acessando atributos
-% 
-	% {{ objeto.atributo }}
-% 
-% Tags
-% 
-	% {% tag %}
-% 
-% Exemplo:
-% 
-	% {% if condicao %}
-% 
-	% {% endif %}
-% 
-	% {% for item in objeto %}
-		% {{ item.atributo }}
-	% {% endfor %}
-% 
-% Vamos editar:
-% 
-% **menu.html**
-% 
-	% <a href="{% url 'home' %}">Home</a>
-% 
-% **base.html**
-% 
-	% {% include "menu.html" %}
-% 
-	% {% block content %}
-		% html
-	% {% endblock content %}
-% 
-% \end{frame}
+\begin{frame}
 
-% \begin{frame}[fragile]\frametitle{Herança de Templates}
-% 
-% 
-% **index.html**
-% 
-	% {% extends "base.html" %}
-% 
-	% {% block content %}
-		% <div class="container">
-			% <div class="jumbotron">
-				% <h1>Tutorial Django</h1>
-				% <h3>Bem vindo ao Grupy-SP</h3>
-			% </div>
-		% </div>
-	% {% endblock content %}
-% 
-% 
-% 
-% 
-% 
-% **movie_list.html**
-% 
-	% {% for item in object_list %}
-		% <ul>
-			% <li>{{ item.movie }}</li>
-			% <li>{{ item.category }}</li>
-			% ...
-		% </ul>
-	% {% endfor %}
-% 
-% 
-% **movie_list.html (completo)**
-% 
-	% {% extends "base.html" %}
-% 
-	% {% block content %}
-% 
-		% {% if movies %}
-			% <table>
-			    % <tbody>
-			    % {% for movie in movies %}
-			        % <tr>
-		            	% <td>{{ movie.movie }}</td>
-		            	% <td>{{ movie.category }}</td>
-		            	% <td>{{ movie.distributor }}</td>
-		            	% <td>U$ {{ movie.raised }}</td>
-		            	% <td>{{ movie.release|date:"d/m/Y" }}</td>
-		            	% {% if movie.liked %}
-							% <td><span class="glyphicon glyphicon-ok-sign" style="color: #44AD41"></span></% td>
-						% {% else %}
-							% <td><span class="glyphicon glyphicon-minus-sign" style="color: #DE2121"></% span></td>
-						% {% endif %}
-			        % </tr>
-			    % {% endfor %}
-			    % </tbody>
-			% </table>
-		% {% else %}
-			% <p class="alert alert-warning">Sem itens na lista.</p>
-		% {% endif %}
-	% </div>
-	% {% endblock content %}
-% 
-% 
-% ![image](img/lista.png)
-% 
-% 
-% 
-% **movie_detail.html**
-% 
-	% {{ object.movie }}
-% 
-% http://getbootstrap.com/
-% 
-% http://getbootstrap.com/examples/theme/
-% 
-% http://www.layoutit.com/
-% 
-% 
-% 
-% \end{frame}
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node [selected] {core}
+    child { node {admin.py}}				
+    child { node {models.py}}				
+    child { node [selected] {templates}
+      child { node {base.html}}
+      child { node {index.html}}
+      child { node {menu.html}}
+      child { node [selected] {core}
+        child { node {movie\_detail.html}}
+        child { node {movie\_form.html}}
+        child { node {movie\_list.html}}
+      }
+    }
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child { node {tests.py}}				
+    child { node {views.py}};
+\end{tikzpicture}
 
-% \begin{frame}[fragile]\frametitle{Visualizando os dados com json}
-% 
-% views.py
-% 
-	% def movie_list_json(request):
-	    % movies = Movie.objects.all()
-	    % s = serializers.serialize("json", movies)
-	    % return HttpResponse(s)
-% 
-% urls.py
-% 
-    % url(r'^movie/json$', 'movie_list_json', name='movie_list_json'),
-% 
-% 
-% 
-% \end{frame}
+\end{frame}
 
-% \begin{frame}[fragile]\frametitle{Editando a views.py}
-% 
-	% def movie_list(request):
-	    % movies = Movie.objects.all()
-	    % context = {'movies': movies}
-	    % return render(request, 'core/movie_list.html', context)
-% 
-% 
-% 
-% ### Class Based View
-% 
-% https://docs.djangoproject.com/en/1.8/topics/class-based-views/
-% 
-% https://ccbv.co.uk/
-% 
-% **Leia**: "Django Class Based Views - o que s\~ao e por que usar" - Caio Carrara https://goo.gl/xnfqx1
-% 
-% https://speakerdeck.com/cacarrara/django-class-based-views
-% 
-% 
-% ### Editando o views.py para lista
-% 
-	% class MovieList(ListView):
-	    % template_name = 'core/movie_list.html'
-	    % model = Movie
-	    % context_object_name = 'movies'
-% 
-% 
-% 
-% 
-% \end{frame}
+\begin{frame}[fragile]\frametitle{Vari\'aveis}
 
-% \begin{frame}[fragile]\frametitle{Formul\'arios}
-% 
-% ### Editando o views.py para formul\'ario
-% 
-% 
-	% class MovieCreate(CreateView):
-	    % template_name = 'core/movie_form.html'
-	    % model = Movie
-	    % fields = '__all__'
-	    % success_url = reverse_lazy('movie_list')
-% 
-% 
-% 
-% ### Editando *movie_form.html*
-% 
-% ![image](img/form.png)
-% 
-% Existem v\'arias formas de se criar um formul\'ario, qual deles eu uso?
-% 
-% 1. Fazendo tudo na m\~ao com html puro
-% 
-% ```
-	% {% extends "base.html" %}
-% 
-	% {% block content %}
-% 
-	% <div class="container">
-		% <form class="form-horizontal" action="." method="POST">
-		    % <legend>Cadastrar</legend>
-		    % {% csrf_token %}
-% 
-		    % <div class="form-group">
-		    	% <label for="id_movie">Filme</label>
-		    	% <input type="text" id="id_movie" name="movie" class="form-control">
-		    % </div>
-% 			
-		    % <div class="form-group">
-		    	% <label for="id_category">Categoria</label>
-% 		    	<input type="text" id="id_category" name="category" class="form-control" placeholder="Tem % que usar select">
-		    % </div>
-% 
-			% <!-- ... -->
-% 
-			% <div class="form-group">
-		      % <div class="col-sm-10 col-sm-offset-2">
-		        % <button type="submit" id="id_submit" class="btn btn-primary">Salvar</button>
-		      % </div>
-		    % </div>
-		% </form>
-	% </div>
-% 
-	% {% endblock content %}
-% ```
-% 
-% 
-% 2. Usando as tags do Django
-% 
-% ```
-	% {{ form }}
-% 
-	% {{ form.as_p }}
-% 
-	% {{ form.as_ul }}
-% 
-	% {{ form.as_table }}
-% ```
-% 
-% Nosso formul\'ario
-% 
-	% {% extends "base.html" %}
-% 
-	% {% block content %}
-		% <form action="" method="POST">
-			% {% csrf_token %}
-			% {{ form.as_p }}
-		% </form>
-	% {% endblock content %}
-% 
-% 
-% 
-% 3. Usando {{ field.label }} e {{ field }}
-% 
-% ```
-	% {% for field in form %}
-	  % <div class="form-group">
-	    % <div class="control-label col-sm-2">
-	      % {{ field.errors }}
-	      % {{ field.label }}
-	    % </div>
-	    % <div class="col-sm-2">
-	      % {{ field }}
-	    % </div>
-	  % </div>
-    % {% endfor %}
-% ```
-% 
-% 
-% 4. Usando bibliotecas como o django-bootstrap-form
-% 
-% ```
-	% {% extends "base.html" %}
-% 
-	% {% load bootstrap %}
-% 
-	% {% block content %}
-% 
-	% <div class="container">
-		% <form class="form-horizontal" action="." method="POST">
-		    % <legend>Cadastrar</legend>
-		    % {% csrf_token %}
-		    % {{ form.movie|bootstrap_horizontal }}
-		    % {{ form.category|bootstrap_horizontal }}
-		    % {{ form.distributor|bootstrap_horizontal }}
-		    % {{ form.raised|bootstrap_horizontal }}
-		    % {{ form.liked|bootstrap_horizontal }}
-		    % {{ form.release|bootstrap_horizontal }}
-% 
-			% <div class="form-group">
-		      % <div class="col-sm-10 col-sm-offset-2">
-		        % <button type="submit" id="id_submit" class="btn btn-primary">Salvar</button>
-		      % </div>
-		    % </div>
-		% </form>
-	% </div>
-% 
-	% {% endblock content %}
-% ```
-% 
-% ![image](img/form4.png)
-% 
-% ### Editando o urls.py
-% 
-    % url(r'^movie/add/$', MovieCreate.as_view(), name='movie_add'),
-% 
-% 
-% \end{frame}
+Acessando objetos
 
-% \begin{frame}[fragile]\frametitle{Um pouco de Selenium}
-% 
-	% $ python selenium/selenium_movie.py	
-% 
-% **Leia**: "Testes com Selenium" - Jayme Neto https://goo.gl/sO7gLB
-% 
-% \end{frame}
+\begin{htmlcode}
+{{ objeto }}
+\end{htmlcode}
 
-% \begin{frame}[fragile]\frametitle{Carregando dados de um json}
-% 
-	% $ python manage.py loaddata fixtures.json
-% 
-% 
-% \end{frame}
 
-% \begin{frame}[fragile]\frametitle{Visualizando os Detalhes}
-% 
-% views.py
-% 
-	% class MovieDetail(DetailView):
-	    % template_name = 'core/movie_detail.html'
-	    % model = Movie
-% 
-% urls.py
-% 
-    % url(r'^movie/(?P<pk>\d+)/$', MovieDetail.as_view(), name='movie_detail'),
-% 
-% movie_detail.html
-% 
-% ```
-	% {% extends "base.html" %}
-% 
-	% {% block content %}
-		% <div class="container">
-			% <div class="row">
-% 
-				% <div class="col-sm-6 col-md-4">
-					% <div class="list-group">
-						% <h1>{{ object.movie}}</h1>
-						% <div class="list-group-item">
-							% <h4>{{ object.category }}</h4>
-						% </div>
-						% <div class="list-group-item">
-							% <h4>{{ object.distributor }}</h4>
-						% </div>
-						% <div class="list-group-item">
-							% <h3>U$ {{ object.raised }}</h3>
-						% </div>
-						% <div class="list-group-item">
-							% <h4>{{ object.release|date:"d/m/Y" }}</h4>
-						% </div>
-					% </div>
-				% </div>
-			% </div>
-		% </div>
-	% {% endblock content %}
-% ```
-% 
-% models.py
-% 
-	% class Movie(models.Model):
-		% ...
-		% def get_absolute_url(self):
-	        % return reverse_lazy('movie_detail', kwargs={'pk': self.pk})
-% 
-% 
-% 
-% movie_list.html
-% 
-% ```
-	% <td><a href="{{ movie.get_absolute_url }}">{{ movie.movie }}</a></td>
-% ```
-% 
-% ![image](img/detalhes.png)
-% 
-% 
-% \end{frame}
+Acessando atributos
 
-% \begin{frame}[fragile]\frametitle{Resumo dos comandos}
-% 
-	% $ django-admin.py startproject myproject .
-	% $ python manage.py startapp core
-	% $ python manage.py migrate
-	% $ python manage.py makemigrations
-	% $ python manage.py migrate
-	% $ python manage.py createsuperuser --username='admin' --email=''
-	% $ python manage.py test
-	% $ python manage.py shell
-	% $ python manage.py runserver
-	% $ python manage.py dumpdata core --format=json --indent=2 > fixtures.json
-	% $ python manage.py loaddata fixtures.json
-% 
-% 
-% 
-% 
-% \end{frame}
+\begin{htmlcode}
+{{ objeto.atributo }}
+\end{htmlcode}
 
-% \begin{frame}[fragile]\frametitle{Deploy no Heroku}
-% 
-% Voc\^e deve ter uma conta no **GitHub** e no **Heroku**.
-% 
-% ### Instale o heroku toolbelt
-% 
-	% $ wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-% 
-% https://toolbelt.heroku.com/debian
-% 
-% ### Crie o Runtime e o Procfile
-% 
-	% $ heroku login
-	% $ echo "python-3.4.0" > runtime.txt
-	% $ heroku create django18grupy
-	% $ echo "web: gunicorn myproject.wsgi" > Procfile
-	% $ pip install dj-static gunicorn psycopg2
-	% $ pip freeze > requirements.txt
-% 
-% ### Edite o wsgi.py
-% 
-	% import os
-	% os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
-% 
-	% from django.core.wsgi import get_wsgi_application
-	% from dj_static import Cling
-% 
-	% application = Cling(get_wsgi_application())
-% 
-% ### Edite o settings.py
-% 
-	% DATABASES = {
-	    % 'default': dj_database_url.config(
-	        % default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'))
-	% }
-% 
-% Faça o push no GitHub.
-% 
-	% $ git add .
-	% $ git commit -m "config to heroku"
-	% $ git push origin master
-% 
-% Agora, os comandos do heroku
-% 
-	% $ git push heroku master --force
-	% $ heroku ps:scale web=1
-	% $ heroku labs:enable user-env-compile
-	% $ heroku pg
-	% $ heroku run python manage.py makemigrations
-	% $ heroku run python manage.py migrate
-	% $ heroku pg
-	% $ heroku run python manage.py createsuperuser --username='admin' --email=''
-	% $ heroku run python manage.py loaddata fixtures.json
-	% $ heroku open
-% 
-% https://devcenter.heroku.com/articles/getting-started-with-django
-% 
-% \end{frame}
 
-% \begin{frame}[fragile]\frametitle{Awesome Django}
-% 
-% https://github.com/rosarior/awesome-django
-% 
-% ### Admin interface
-% 
-% **django-grappelli**
-% 
-% https://github.com/sehmaschine/django-grappelli/
-% 
-% **django-admin-bootstrap**
-% 
-% https://github.com/django-admin-bootstrap/django-admin-bootstrap
-% 
-% **django-material**
-% 
-% https://github.com/viewflow/django-material
-% 
-% ### Database
-% 
-% **dj-database-url**
-% 
-% https://github.com/kennethreitz/dj-database-url/
-% 
-% ### Debugging
-% 
-% **django-debug-toolbar**
-% 
-% https://github.com/django-debug-toolbar/django-debug-toolbar/
-% 
-% ### Forms
-% 
-% **django-bootstrap-form**
-% 
-% https://github.com/tzangms/django-bootstrap-form/
-% 
-% **django-bootstrap3**
-% 
-% https://github.com/dyve/django-bootstrap3/
-% 
-% **django-crispy-forms**
-% 
-% https://github.com/maraujop/django-crispy-forms/
-% 
-% **django-floppyforms**
-% 
-% https://github.com/gregmuellegger/django-floppyforms/
-% 
-% **django-autocomplete-light**
-% 
-% https://github.com/yourlabs/django-autocomplete-light/
-% 
-% ### RESTful API
-% 
-% **django-rest-framework**
-% 
-% http://www.django-rest-framework.org/
-% 
-% ### Migrations
-% 
-% **South**
-% 
-% https://bitbucket.org/andrewgodwin/south/src/
-% 
-% ### Model Extensions
-% 
-% **django-aggregate-if**
-% 
-% https://github.com/henriquebastos/django-aggregate-if/
-% 
-% ### Testing
-% 
-% **model-mommy**
-% 
-% https://github.com/vandersonmota/model_mommy/
-% 
-% **mixer**
-% 
-% https://github.com/klen/mixer
-% 
-% ### Other
-% 
-% **django-extensions**
-% 
-% https://github.com/django-extensions/django-extensions/
-% 
-% 
-% \end{frame}
+Tags
 
-% \begin{frame}[fragile]\frametitle{Livros}
-% 
-% * Django Essencial de Julia Elman da Novatec
-% 
-% http://www.novatec.com.br/livros/django/
-% 
-% * Two Scoops of Django 1.8 de Daniel and Audrey Roy Greenfeld (Py Danny)
-% 
-% http://twoscoopspress.org/pages/current-django-books
-% 
-% http://djangoteca.info/livros/django/
-% 
-% * Django Book online
-% 
-% http://www.djangobook.com/en/2.0/index.html
-% 
-% 
-% 
-% 
-% \end{frame}
+\begin{htmlcode}
+{% tag %}
+\end{htmlcode}
 
-% \begin{frame}[fragile]\frametitle{Cursos}
-% 
-% * Django presencial na CTNovatec (S\~ao Paulo) com J\'ulio C. Melanda, dias 03 e 04/10/15 (S\'ab e Dom)
-% 
-% http://ctnovatec.com.br/cursos/trilha-python/curso-de-django/
-% 
-% * Welcome to the Django (online) com Henrique Bastos, em 2015
-% 
-% http://welcometothedjango.com.br/
-% 
-% * PyCursos (online) Jornada Django com Gileno Filho
-% 
-% http://pycursos.com/django/
-% 
-% 
-% 
-% \end{frame}
+\
 
-% \begin{frame}[fragile]\frametitle{YouTube}
-% 
-% * Python para Zumbis - https://goo.gl/swsHmw
-% * Django para Iniciantes por Allisson Azevedo - https://goo.gl/38ttOb
-% * CodingEntrepreneurs Try Django 1.8 - https://goo.gl/HNxRou
+Exemplo:
 
-% \end{frame}
+\begin{htmlcode}
+{% if condicao %}
+    <!-- algum comando -->
+{% endif %}
+
+{% for item in objeto %}
+    {{ item.atributo }}
+{% endfor %}
+\end{htmlcode}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Editando os templates}
+
+\textbf{menu.html}
+
+\begin{htmlcode}
+<a href="{% url 'home' %}">Home</a>
+\end{htmlcode}
+
+\
+
+\
+
+\textbf{base.html}
+
+\begin{htmlcode}
+{% include "menu.html" %}
+
+{% block content %}
+    html
+{% endblock content %}
+\end{htmlcode}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Heran\c ca de Templates}
+ 
+\textbf{index.html}
+
+\begin{htmlcode}
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Tutorial Django</h1>
+      <h3>Bem vindo ao Grupy-SP</h3>
+    </div>
+  </div>
+{% endblock content %}
+\end{htmlcode}
+ 
+\end{frame}
+
+
+\begin{frame}[fragile]
+ 
+\textbf{movie\_list.html (incompleto)}
+
+\begin{htmlcode}
+{% for item in object_list %}
+  <ul>
+    <li>{{ item.movie }}</li>
+    <li>{{ item.category }}</li>
+    ...
+  </ul>
+{% endfor %}
+\end{htmlcode}
+ 
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[width=.9\paperwidth]{img/lista.png}
+	\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+
+\textbf{movie\_detail.html}
+
+\begin{htmlcode}
+{{ object.movie }}
+\end{htmlcode}
+
+\vfill
+
+\url{http://getbootstrap.com/}
+
+\url{http://getbootstrap.com/examples/theme/}
+
+\url{http://www.layoutit.com/}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]\frametitle{Visualizando os dados com json}
+
+\textbf{views.py}
+
+\begin{pythoncode}
+def movie_list_json(request):
+    movies = Movie.objects.all()
+    s = serializers.serialize("json", movies)
+    return HttpResponse(s)
+\end{pythoncode}
+
+\
+
+\
+
+\textbf{urls.py}
+
+\begin{pythoncode}
+	url(r'^movie/json$', 'movie_list_json', name='movie_list_json'),
+\end{pythoncode}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]\frametitle{Editando a views.py}
+
+\begin{pythoncode}
+def movie_list(request):
+    movies = Movie.objects.all()
+    context = {'movies': movies}
+    return render(request, 'core/movie_list.html', context)
+\end{pythoncode}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Class Based View}
+
+\url{https://docs.djangoproject.com/en/1.8/topics/class-based-views/}
+
+\
+
+\url{https://ccbv.co.uk/}
+
+\
+
+\textbf{Leia}: \emph{Django Class Based Views - o que s\~ao e por que usar} - Caio Carrara \url{https://goo.gl/xnfqx1}
+
+\
+
+\url{https://speakerdeck.com/cacarrara/django-class-based-views}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Class Based View}
+
+\textbf{Editando o views.py para lista}
+
+\begin{pythoncode}
+class MovieList(ListView):
+    template_name = 'core/movie_list.html'
+    model = Movie
+    context_object_name = 'movies'
+\end{pythoncode}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]\frametitle{Formul\'arios}
+
+\textbf{Editando o views.py para formul\'ario}
+
+\begin{pythoncode}
+class MovieCreate(CreateView):
+    template_name = 'core/movie_form.html'
+    model = Movie
+    fields = '__all__'
+    success_url = reverse_lazy('movie_list')
+\end{pythoncode}
+
+\end{frame}
+
+\begin{frame}\frametitle{Esbo\c co do Formul\'ario}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[height=.8\paperheight]{img/form.png}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Editando movie\_form.html}
+	
+1. Fazendo tudo na m\~ao com html puro
+
+\begin{htmlcode}
+{% extends "base.html" %}
+{% block content %}
+	<div class="container">
+		<form class="form-horizontal" action="." method="POST">
+		    <legend>Cadastrar</legend>
+		    {% csrf_token %}
+		    <div class="form-group">
+		    	<label for="id_movie">Filme</label>
+		    	<input type="text" id="id_movie" name="movie" class="form-control">
+		    </div>
+		    <div class="form-group">
+		    	<label for="id_category">Categoria</label>
+		    	<input type="text" id="id_category" name="category"
+		    	  placeholder="Tem que usar select">
+		    </div>
+			<div class="form-group">
+		      <div class="col-sm-10 col-sm-offset-2">
+		        <button type="submit" id="id_submit" class="btn btn-primary">Salvar</button>
+		      </div>
+		    </div>
+		</form>
+	</div>
+
+	{% endblock content %}
+
+\end{htmlcode}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+2. Usando as tags do Django
+
+\begin{htmlcode}
+{{ form }}
+{{ form.as_p }}
+{{ form.as_ul }}
+{{ form.as_table }}
+\end{htmlcode}
+
+\
+
+\
+
+Nosso formul\'ario
+
+\begin{htmlcode}
+{% extends "base.html" %}
+{% block content %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+  </form>
+{% endblock content %}
+\end{htmlcode}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+3. Usando \texttt{\{\{ field.label \}\}} e \texttt{\{\{ field \}\}}
+
+\begin{htmlcode}
+{% for field in form %}
+  <div class="form-group">
+    <div class="control-label col-sm-2">
+      {{ field.errors }}
+      {{ field.label }}
+    </div>
+    <div class="col-sm-2">
+      {{ field }}
+    </div>
+  </div>
+{% endfor %}
+\end{htmlcode}
+\end{frame}
+
+\begin{frame}[fragile]
+4. Usando bibliotecas como o django-bootstrap-form
+
+\begin{htmlcode}
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block content %}
+<div class="container">
+  <form class="form-horizontal" action="." method="POST">
+    <legend>Cadastrar</legend>
+    {% csrf_token %}
+    {{ form.movie|bootstrap_horizontal }}
+    {{ form.category|bootstrap_horizontal }}
+    {{ form.distributor|bootstrap_horizontal }}
+    {{ form.raised|bootstrap_horizontal }}
+    {{ form.liked|bootstrap_horizontal }}
+    {{ form.release|bootstrap_horizontal }}
+    <div class="form-group">
+      <div class="col-sm-10 col-sm-offset-2">
+        <button type="submit" id="id_submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock content %}
+\end{htmlcode}
+\end{frame}
+
+\begin{frame}\frametitle{Formul\'ario}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[width=.9\paperwidth]{img/form4.png}
+	\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Editando o urls.py}
+
+\begin{pythoncode}
+url(r'^movie/add/$', MovieCreate.as_view(), name='movie_add'),
+\end{pythoncode}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Um pouco de Selenium}
+
+
+\begin{bashcode}
+$ python selenium/selenium_movie.py
+\end{bashcode}
+
+\vfill
+
+\textbf{Leia}: \textit{Testes com Selenium} - Jayme Neto \url{https://goo.gl/sO7gLB}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Carregando dados de um json}
+
+\begin{bashcode}
+$ python manage.py loaddata fixtures.json
+\end{bashcode}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Visualizando os Detalhes}
+
+\textbf{views.py}
+
+\begin{pythoncode}
+class MovieDetail(DetailView):
+    template_name = 'core/movie_detail.html'
+    model = Movie
+\end{pythoncode}
+
+\
+
+\
+
+\textbf{urls.py}
+
+\begin{pythoncode}
+url(r'^movie/(?P<pk>\d+)/$', MovieDetail.as_view(),
+    name='movie_detail'),
+\end{pythoncode}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\textbf{movie\_detail.html}
+
+\begin{htmlcode}
+{% extends "base.html" %}
+{% block content %}
+    <div class="list-group">
+      <h1>{{ object.movie}}</h1>
+      <div class="list-group-item">
+        <h4>{{ object.category }}</h4>
+      </div>
+      <div class="list-group-item">
+        <h4>{{ object.distributor }}</h4>
+      </div>
+      <div class="list-group-item">
+        <h3>U$ {{ object.raised }}</h3>
+      </div>
+      <div class="list-group-item">
+        <h4>{{ object.release|date:"d/m/Y" }}</h4>
+      </div>
+    </div>
+{% endblock content %}
+\end{htmlcode}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\textbf{models.py}
+
+\begin{pythoncode}
+class Movie(models.Model):
+    ...
+    def get_absolute_url(self):
+        return reverse_lazy('movie_detail',
+                            kwargs={'pk': self.pk})
+\end{pythoncode}
+
+\
+
+\
+
+\
+
+\textbf{movie\_list.html}
+
+\begin{htmlcode}
+<td><a href="{{ movie.get_absolute_url }}">{{ movie.movie }}</a></td>
+\end{htmlcode}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+	\begin{figure}[h]
+	  \centering
+  		\includegraphics[height=.9\paperheight]{img/detalhes.png}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Resumo dos comandos}
+
+\begin{bashcode}
+$ django-admin.py startproject myproject .
+$ python manage.py startapp core
+$ python manage.py migrate
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py createsuperuser --username='admin' --email=''
+$ python manage.py test
+$ python manage.py shell
+$ python manage.py runserver
+$ python manage.py dumpdata core --format=json --indent=2 >
+                                                  fixtures.json
+$ python manage.py loaddata fixtures.json
+\end{bashcode}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]\frametitle{Deploy no Heroku}
+
+Voc\^e deve ter uma conta no \textbf{GitHub} e no \textbf{Heroku}.
+
+\
+
+\textbf{Instale o heroku toolbelt}
+
+\begin{bashcode}
+$ wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+\end{bashcode}
+
+\url{https://toolbelt.heroku.com/debian}
+
+\
+
+\textbf{Crie o Runtime e o Procfile}
+
+\begin{bashcode}
+$ heroku login
+$ echo "python-3.4.0" > runtime.txt
+$ heroku create django18grupy
+$ echo "web: gunicorn myproject.wsgi" > Procfile
+$ pip install dj-static gunicorn psycopg2
+$ pip freeze > requirements.txt
+\end{bashcode}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	
+\textbf{Edite o wsgi.py}
+
+\begin{pythoncode}
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+                      "myproject.settings")
+
+from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
+
+application = Cling(get_wsgi_application())
+\end{pythoncode}
+
+\
+
+\
+
+\textbf{Edite o settings.py}
+
+\begin{pythoncode}
+DATABASES = {
+    'default': dj_database_url.config(
+      default='sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3'))
+}
+\end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{GitHub}
+Fa\c ca o push no GitHub.
+
+\begin{bashcode}
+$ git add .
+$ git commit -m "config to heroku"
+$ git push origin master
+\end{bashcode}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{heroku}
+	
+Agora, os comandos do heroku
+
+\begin{bashcode}
+$ git push heroku master --force
+$ heroku ps:scale web=1
+$ heroku labs:enable user-env-compile
+$ heroku pg
+$ heroku run python manage.py makemigrations
+$ heroku run python manage.py migrate
+$ heroku pg
+$ heroku run python manage.py createsuperuser --username='admin' --email=''
+$ heroku run python manage.py loaddata fixtures.json
+$ heroku open
+\end{bashcode}
+
+\vfill
+
+\url{devcenter.heroku.com/articles/getting-started-with-django}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Livros}
+
+\begin{itemize}
+
+	\item Django Essencial de Julia Elman da Novatec
+
+\url{http://www.novatec.com.br/livros/django/}
+
+	\item Two Scoops of Django 1.8 de Daniel and Audrey Roy Greenfeld (Py Danny)
+
+\url{http://twoscoopspress.org/pages/current-django-books}
+
+
+\url{http://djangoteca.info/livros/django/}
+
+	\item Django Book online
+
+\url{http://www.djangobook.com/en/2.0/index.html}
+
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Cursos}
+
+\begin{itemize}
+
+	\item Django presencial na CTNovatec (S\~ao Paulo) com J\'ulio C. Melanda, dias 03 e 04/10/15 (S\'ab e Dom)
+
+	\url{ctnovatec.com.br/cursos/trilha-python/curso-de-django/}
+
+	\item Welcome to the Django (online) com Henrique Bastos, em 2015
+
+	\url{welcometothedjango.com.br/}
+
+	\item PyCursos (online) Jornada Django com Gileno Filho
+
+	\url{pycursos.com/django/}
+
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{YouTube}
+
+\begin{itemize}
+	\item Python para Zumbis - \url{https://goo.gl/swsHmw}
+	\item Django para Iniciantes por Allisson Azevedo - \url{https://goo.gl/38ttOb}
+	\item CodingEntrepreneurs Try Django 1.8 - \url{https://goo.gl/HNxRou}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\titlepage
+\end{frame}
 
 
 \end{document}
