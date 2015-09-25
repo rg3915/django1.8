@@ -1125,6 +1125,10 @@ Exemplo:
 \textbf{views.py}
 
 \begin{pythoncode}
+import json
+from django.core import serializers
+from .models import Movie
+
 def movie_list_json(request):
     movies = Movie.objects.all()
     s = serializers.serialize("json", movies)
@@ -1182,6 +1186,9 @@ def movie_list(request):
 \textbf{Editando o views.py para lista}
 
 \begin{pythoncode}
+from django.views.generic import CreateView, TemplateView
+from django.views.generic import ListView, DetailView
+
 class MovieList(ListView):
     template_name = 'core/movie_list.html'
     model = Movie
@@ -1199,11 +1206,23 @@ class MovieList(ListView):
 \textbf{Editando o views.py para formul\'ario}
 
 \begin{pythoncode}
+from django.core.urlresolvers import reverse_lazy
+
 class MovieCreate(CreateView):
     template_name = 'core/movie_form.html'
     model = Movie
     fields = '__all__'
     success_url = reverse_lazy('movie_list')
+\end{pythoncode}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Editando o urls.py}
+
+\begin{pythoncode}
+from core.views import *
+
+url(r'^movie/add/$', MovieCreate.as_view(), name='movie_add'),
 \end{pythoncode}
 
 \end{frame}
@@ -1337,13 +1356,6 @@ Nosso formul\'ario
 \end{frame}
 
 
-\begin{frame}[fragile]\frametitle{Editando o urls.py}
-
-\begin{pythoncode}
-url(r'^movie/add/$', MovieCreate.as_view(), name='movie_add'),
-\end{pythoncode}
-
-\end{frame}
 
 \begin{frame}[fragile]\frametitle{Um pouco de Selenium}
 

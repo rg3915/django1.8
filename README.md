@@ -318,6 +318,7 @@ http://localhost:8080/
 
 	INSTALLED_APPS = (
 	    ...
+	    'bootstrapform',
 	    'core',
 	)
 
@@ -695,6 +696,10 @@ http://www.layoutit.com/
 
 views.py
 
+	import json
+	from django.core import serializers
+	from .models import Movie
+
 	def movie_list_json(request):
 	    movies = Movie.objects.all()
 	    s = serializers.serialize("json", movies)
@@ -728,6 +733,8 @@ https://speakerdeck.com/cacarrara/django-class-based-views
 
 ### Editando o views.py para lista
 
+	from django.views.generic import CreateView, TemplateView, ListView, DetailView
+
 	class MovieList(ListView):
 	    template_name = 'core/movie_list.html'
 	    model = Movie
@@ -740,6 +747,7 @@ https://speakerdeck.com/cacarrara/django-class-based-views
 
 ### Editando o views.py para formulário
 
+	from django.core.urlresolvers import reverse_lazy
 
 	class MovieCreate(CreateView):
 	    template_name = 'core/movie_form.html'
@@ -747,6 +755,11 @@ https://speakerdeck.com/cacarrara/django-class-based-views
 	    fields = '__all__'
 	    success_url = reverse_lazy('movie_list')
 
+### Editando o urls.py
+
+	from core.views import *
+
+    url(r'^movie/add/$', MovieCreate.as_view(), name='movie_add'),
 
 
 ### Editando *movie_form.html*
@@ -866,9 +879,6 @@ Nosso formulário
 
 ![image](img/form4.png)
 
-### Editando o urls.py
-
-    url(r'^movie/add/$', MovieCreate.as_view(), name='movie_add'),
 
 
 ## Um pouco de Selenium
