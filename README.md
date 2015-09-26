@@ -85,7 +85,7 @@ http://www.marinamele.com/taskbuster-django-tutorial
 
 ![image](img/mtv1.png)
 
-![image](img/mtv2.png)
+<img src="img/mtv2.png" alt="image" style="width: 500px;"/>
 
 
 ## ORM
@@ -99,11 +99,7 @@ Objetos = Tuplas (Registros)
 
 ### 1 min de Python
 
-	public static void main (String[] args){
-		System.out.println("Desculpa");
-	} # oops
-
-	print("Python") # simples assim
+	print("Python")
 
 	def soma(a, b):
 		return a + b
