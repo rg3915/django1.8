@@ -83,7 +83,7 @@ http://www.marinamele.com/taskbuster-django-tutorial
 * View - é o controlador, onde acontece as regras de negócio e a comunicação entre a base de dados e o navegador
 * Templates - é a camada de apresentação, são as páginas html
 
-![image](img/mtv1.png)
+![image](img/mtv01.png)
 
 <img src="img/mtv2.png" alt="image" style="width: 500px;"/>
 
